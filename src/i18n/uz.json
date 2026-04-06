@@ -1,0 +1,134 @@
+{
+  "app": {
+    "name": "Restaurant Pro"
+  },
+  "nav": {
+    "settings": "Sozlamalar",
+    "working": "Ish jarayoni",
+    "analytics": "Tahlil"
+  },
+  "lang": {
+    "uz": "O'zbekcha",
+    "ru": "Ruscha"
+  },
+  "common": {
+    "add": "Qo'shish",
+    "edit": "Tahrirlash",
+    "delete": "O'chirish",
+    "save": "Saqlash",
+    "cancel": "Bekor qilish",
+    "close": "Yopish",
+    "search": "Qidirish",
+    "name": "Nomi",
+    "status": "Holati",
+    "actions": "Amallar",
+    "total": "Jami",
+    "price": "Narx",
+    "quantity": "Soni",
+    "sum": "Summa",
+    "date": "Sana",
+    "time": "Vaqt",
+    "yes": "Ha",
+    "no": "Yo'q",
+    "confirm": "Tasdiqlash",
+    "noData": "Ma'lumot yo'q",
+    "currency": "so'm"
+  },
+  "settings": {
+    "title": "Sozlamalar",
+    "tabs": {
+      "rooms": "Xonalar va Stollar",
+      "products": "Taomlar va Ichimliklar",
+      "employees": "Xodimlar"
+    },
+    "rooms": {
+      "addRoom": "Xona qo'shish",
+      "addTable": "Stol qo'shish",
+      "roomName": "Xona nomi",
+      "tableName": "Stol nomi",
+      "extraCharge": "Qo'shimcha summa",
+      "serviceCharge": "Xizmat haqqi",
+      "servicePercent": "Xizmat %",
+      "enableService": "Xizmat haqqi yoqish"
+    },
+    "products": {
+      "addProduct": "Mahsulot qo'shish",
+      "editProduct": "Mahsulotni tahrirlash",
+      "productName": "Mahsulot nomi",
+      "type": "Turi",
+      "category": "Kategoriya",
+      "image": "Rasm",
+      "uploadImage": "Rasm yuklash",
+      "dropImage": "Rasmni shu yerga tashlang",
+      "types": {
+        "kg": "Kilogramm",
+        "litr": "Litr",
+        "portsiya": "Portsiya"
+      },
+      "categories": {
+        "asosiy": "Asosiy taom",
+        "ichimlik": "Ichimliklar",
+        "shirinlik": "Shirinliklar",
+        "gazak": "Gazaklar"
+      }
+    },
+    "employees": {
+      "addEmployee": "Xodim qo'shish",
+      "employeeId": "Xodim ID",
+      "familyName": "Familyasi",
+      "statuses": {
+        "working": "Ishlamoqda",
+        "free": "Bo'shagan"
+      },
+      "changeStatus": "Holatni o'zgartirish"
+    }
+  },
+  "working": {
+    "title": "Ish jarayoni",
+    "newOrder": "Yangi zakaz",
+    "addProduct": "Mahsulot qo'shish",
+    "bill": "Hisob",
+    "closeBill": "Hisobni yopish",
+    "paid": "To'landi",
+    "occupied": "Band",
+    "free": "Bo'sh",
+    "roomSelect": "Xonani tanlang",
+    "saveOrder": "Saqlash va Yuborish",
+    "orderItems": "Buyurtma mahsulotlari",
+    "serviceCharge": "Xizmat haqqi",
+    "roomCharge": "Xona qo'shimchasi",
+    "grandTotal": "Umumiy jami",
+    "products": "mahsulot",
+    "removeProduct": "Mahsulotni olib tashlash",
+    "removeReason": "Olib tashlash sababi",
+    "reasons": {
+      "client_rejected": "Mijoz rad etdi",
+      "employee_error": "Xodim xatosi"
+    },
+    "selectEmployee": "Xodimni tanlang",
+    "fineAmount": "Jarima summasi",
+    "fineOptional": "Ixtiyoriy"
+  },
+  "analytics": {
+    "title": "Tahlil",
+    "startDate": "Boshlanish sanasi",
+    "endDate": "Tugash sanasi",
+    "update": "Yangilash",
+    "totalRevenue": "Jami daromad",
+    "productsSold": "Sotilgan mahsulotlar",
+    "averageBill": "O'rtacha chek",
+    "totalFines": "Jarimalar",
+    "dailyRevenue": "Kunlik daromad",
+    "byProducts": "Mahsulotlar bo'yicha",
+    "byRooms": "Xonalar bo'yicha",
+    "fines": "Xodim jarimlari",
+    "productName": "Mahsulot",
+    "soldCount": "Sotilgan soni",
+    "roomName": "Xona",
+    "productCount": "Mahsulot soni",
+    "occupiedTime": "Band vaqt",
+    "employee": "Xodim",
+    "reason": "Sabab",
+    "amount": "Summa"
+  }
+}

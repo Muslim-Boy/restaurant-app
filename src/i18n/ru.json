@@ -1,0 +1,134 @@
+{
+  "app": {
+    "name": "Restaurant Pro"
+  },
+  "nav": {
+    "settings": "Настройки",
+    "working": "Рабочая зона",
+    "analytics": "Аналитика"
+  },
+  "lang": {
+    "uz": "Узбекский",
+    "ru": "Русский"
+  },
+  "common": {
+    "add": "Добавить",
+    "edit": "Редактировать",
+    "delete": "Удалить",
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "close": "Закрыть",
+    "search": "Поиск",
+    "name": "Название",
+    "status": "Статус",
+    "actions": "Действия",
+    "total": "Итого",
+    "price": "Цена",
+    "quantity": "Количество",
+    "sum": "Сумма",
+    "date": "Дата",
+    "time": "Время",
+    "yes": "Да",
+    "no": "Нет",
+    "confirm": "Подтвердить",
+    "noData": "Нет данных",
+    "currency": "сум"
+  },
+  "settings": {
+    "title": "Настройки",
+    "tabs": {
+      "rooms": "Комнаты и Столы",
+      "products": "Блюда и Напитки",
+      "employees": "Сотрудники"
+    },
+    "rooms": {
+      "addRoom": "Добавить комнату",
+      "addTable": "Добавить стол",
+      "roomName": "Название комнаты",
+      "tableName": "Название стола",
+      "extraCharge": "Доп. сумма",
+      "serviceCharge": "Плата за обслуживание",
+      "servicePercent": "Обслуживание %",
+      "enableService": "Включить плату за обслуживание"
+    },
+    "products": {
+      "addProduct": "Добавить продукт",
+      "editProduct": "Редактировать продукт",
+      "productName": "Название продукта",
+      "type": "Тип",
+      "category": "Категория",
+      "image": "Изображение",
+      "uploadImage": "Загрузить изображение",
+      "dropImage": "Перетащите изображение сюда",
+      "types": {
+        "kg": "Килограмм",
+        "litr": "Литр",
+        "portsiya": "Порция"
+      },
+      "categories": {
+        "asosiy": "Основное блюдо",
+        "ichimlik": "Напитки",
+        "shirinlik": "Десерты",
+        "gazak": "Закуски"
+      }
+    },
+    "employees": {
+      "addEmployee": "Добавить сотрудника",
+      "employeeId": "ID сотрудника",
+      "familyName": "Фамилия",
+      "statuses": {
+        "working": "Работает",
+        "free": "Свободен"
+      },
+      "changeStatus": "Изменить статус"
+    }
+  },
+  "working": {
+    "title": "Рабочая зона",
+    "newOrder": "Новый заказ",
+    "addProduct": "Добавить продукт",
+    "bill": "Счёт",
+    "closeBill": "Закрыть счёт",
+    "paid": "Оплачено",
+    "occupied": "Занят",
+    "free": "Свободен",
+    "roomSelect": "Выберите комнату",
+    "saveOrder": "Сохранить и Отправить",
+    "orderItems": "Позиции заказа",
+    "serviceCharge": "Плата за обслуживание",
+    "roomCharge": "Доп. за комнату",
+    "grandTotal": "Общий итог",
+    "products": "продукт",
+    "removeProduct": "Убрать продукт",
+    "removeReason": "Причина удаления",
+    "reasons": {
+      "client_rejected": "Клиент отказался",
+      "employee_error": "Ошибка сотрудника"
+    },
+    "selectEmployee": "Выберите сотрудника",
+    "fineAmount": "Сумма штрафа",
+    "fineOptional": "Необязательно"
+  },
+  "analytics": {
+    "title": "Аналитика",
+    "startDate": "Дата начала",
+    "endDate": "Дата окончания",
+    "update": "Обновить",
+    "totalRevenue": "Общий доход",
+    "productsSold": "Проданные продукты",
+    "averageBill": "Средний чек",
+    "totalFines": "Штрафы",
+    "dailyRevenue": "Ежедневный доход",
+    "byProducts": "По продуктам",
+    "byRooms": "По комнатам",
+    "fines": "Штрафы сотрудников",
+    "productName": "Продукт",
+    "soldCount": "Продано",
+    "roomName": "Комната",
+    "productCount": "Кол-во продуктов",
+    "occupiedTime": "Время занятости",
+    "employee": "Сотрудник",
+    "reason": "Причина",
+    "amount": "Сумма"
+  }
+}
