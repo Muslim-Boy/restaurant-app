@@ -50,8 +50,8 @@ const items = computed<(HistoryItem & { image: string | null })[]>(() => {
 const subtotal = computed(() => items.value.reduce((s, i) => s + i.total, 0))
 
 const serviceCharge = computed(() => {
-  if (!room.value?.serviceEnabled) return 0
-  return Math.round(subtotal.value * room.value.servicePercent / 100)
+  if (room.value?.noServiceCharge) return 0
+  return Math.round(subtotal.value * roomsStore.globalServicePercent / 100)
 })
 
 const roomCharge = computed(() => room.value?.extraCharge ?? 0)
@@ -95,20 +95,20 @@ function formatPrice(val: number): string {
         class="fixed inset-0 z-[100] flex items-center justify-center p-4"
       >
         <!-- Backdrop -->
-        <div class="absolute inset-0 bg-on-surface/40 backdrop-blur-sm" @click="emit('close')" />
+        <div class="absolute inset-0 bg-[rgba(15,23,42,0.4)] backdrop-blur-sm" @click="emit('close')" />
 
         <!-- Modal -->
-        <div class="relative bg-white w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden">
+        <div class="relative bg-white w-full max-w-2xl rounded-2xl shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] overflow-hidden">
           <!-- Header -->
-          <div class="px-6 py-5 border-b border-surface-container flex items-center justify-between">
+          <div class="px-6 py-5 border-b border-border flex items-center justify-between">
             <div>
               <h2 class="text-xl font-bold text-on-surface">{{ t('working.closeBill') }}</h2>
               <p class="text-sm text-outline mt-0.5">
                 {{ room?.name }} · {{ startTimeFormatted }}
               </p>
             </div>
-            <button class="p-2 rounded-full hover:bg-surface-container transition-colors" @click="emit('close')">
-              <span class="material-symbols-outlined text-outline">close</span>
+            <button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-tab-bg transition-colors" @click="emit('close')">
+              <span class="material-symbols-outlined text-[#737686]">close</span>
             </button>
           </div>
 
@@ -121,7 +121,7 @@ function formatPrice(val: number): string {
                 <div
                   v-for="item in items"
                   :key="item.productId"
-                  class="flex items-center gap-3 p-3 rounded-xl bg-surface-container/30"
+                  class="flex items-center gap-3 p-3 rounded-xl bg-tab-bg/50"
                 >
                   <div class="w-10 h-10 rounded-lg overflow-hidden bg-surface-container-high shrink-0">
                     <img v-if="item.image" :src="item.image" class="w-full h-full object-cover" />
@@ -131,21 +131,21 @@ function formatPrice(val: number): string {
                   </div>
                   <div class="flex-1 min-w-0">
                     <span class="text-sm font-medium text-on-surface truncate block">{{ item.name }}</span>
-                    <span class="text-xs text-outline">{{ item.quantity }} × {{ formatPrice(item.price) }}</span>
+                    <span class="text-xs text-muted">{{ item.quantity }} × {{ formatPrice(item.price) }}</span>
                   </div>
                   <span class="text-sm font-bold text-on-surface shrink-0">{{ formatPrice(item.total) }}</span>
                 </div>
               </div>
 
               <!-- Service badge -->
-              <div v-if="room?.serviceEnabled" class="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-fixed text-primary text-xs font-semibold">
+              <div v-if="!room?.noServiceCharge && roomsStore.globalServicePercent > 0" class="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-fixed text-primary text-xs font-semibold">
                 <span class="material-symbols-outlined text-[14px]">percent</span>
-                {{ t('working.serviceCharge') }}: {{ room.servicePercent }}%
+                {{ t('working.serviceCharge') }}: {{ roomsStore.globalServicePercent }}%
               </div>
             </div>
 
             <!-- Right: Total Card -->
-            <div class="md:col-span-5 p-6 bg-surface-container/30 flex flex-col justify-between border-l border-surface-container">
+            <div class="md:col-span-5 p-6 bg-tab-bg/50 flex flex-col justify-between border-l border-border">
               <!-- Breakdown -->
               <div class="space-y-3">
                 <div class="flex justify-between text-sm">
@@ -162,7 +162,7 @@ function formatPrice(val: number): string {
                 </div>
                 <div class="border-t border-outline-variant/30 pt-3">
                   <div class="flex justify-between items-baseline">
-                    <span class="text-xs font-bold text-outline uppercase tracking-wider">{{ t('working.grandTotal') }}</span>
+                    <span class="text-[10px] font-bold text-outline uppercase tracking-wider">{{ t('working.grandTotal') }}</span>
                   </div>
                   <div class="mt-1 flex items-baseline gap-2">
                     <span class="text-3xl font-black text-on-surface">{{ formatPrice(grandTotal) }}</span>

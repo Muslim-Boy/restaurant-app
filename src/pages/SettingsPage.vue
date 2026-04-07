@@ -10,37 +10,47 @@ const { t } = useI18n()
 const activeTab = ref<'rooms' | 'products' | 'employees'>('rooms')
 
 const tabs = [
-  { key: 'rooms' as const, icon: 'meeting_room', label: 'settings.tabs.rooms' },
-  { key: 'products' as const, icon: 'restaurant_menu', label: 'settings.tabs.products' },
-  { key: 'employees' as const, icon: 'badge', label: 'settings.tabs.employees' },
+  { key: 'rooms' as const, label: () => t('settings.tabs.rooms') },
+  { key: 'products' as const, label: () => t('settings.tabs.products') },
+  { key: 'employees' as const, label: () => t('settings.tabs.employees') },
 ]
 </script>
 
 <template>
-  <div class="p-6 space-y-6">
-    <!-- Tabs -->
-    <div class="flex gap-2 bg-surface-container rounded-xl p-1.5">
-      <button
-        v-for="tab in tabs"
-        :key="tab.key"
-        class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200"
-        :class="
-          activeTab === tab.key
-            ? 'bg-white text-primary shadow-card font-semibold'
-            : 'text-outline hover:text-on-surface hover:bg-surface-container-high'
-        "
-        @click="activeTab = tab.key"
-      >
-        <span class="material-symbols-outlined text-[20px]">{{ tab.icon }}</span>
-        {{ t(tab.label) }}
-      </button>
+  <div class="p-4 sm:p-6 lg:p-8">
+    <!-- Page Header & Tabs -->
+    <div class="space-y-6 mb-8">
+      <!-- Header -->
+      <div>
+        <h1 class="text-2xl sm:text-[30px] font-extrabold leading-9 tracking-tight text-on-surface">
+          {{ t('settings.title') }}
+        </h1>
+        <p class="text-sm text-outline mt-1">
+          {{ t('settings.subtitle') }}
+        </p>
+      </div>
+
+      <!-- Tab Bar -->
+      <div class="inline-flex items-center bg-tab-bg rounded-2xl p-1 gap-1">
+        <button
+          v-for="tab in tabs"
+          :key="tab.key"
+          class="px-6 py-2.5 rounded-xl text-sm font-medium transition-all duration-200"
+          :class="
+            activeTab === tab.key
+              ? 'bg-white shadow-tab text-primary font-semibold'
+              : 'text-outline hover:text-on-surface'
+          "
+          @click="activeTab = tab.key"
+        >
+          {{ tab.label() }}
+        </button>
+      </div>
     </div>
 
     <!-- Tab Content -->
-    <KeepAlive>
-      <RoomsTab v-if="activeTab === 'rooms'" />
-      <ProductsTab v-else-if="activeTab === 'products'" />
-      <EmployeesTab v-else />
-    </KeepAlive>
+    <RoomsTab v-if="activeTab === 'rooms'" />
+    <ProductsTab v-else-if="activeTab === 'products'" />
+    <EmployeesTab v-else-if="activeTab === 'employees'" />
   </div>
 </template>

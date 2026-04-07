@@ -71,12 +71,12 @@ const chartOptions = {
 </script>
 
 <template>
-  <div class="bg-white rounded-xl shadow-card p-5">
+  <div class="bg-white rounded-2xl shadow-card p-5">
     <h3 class="text-sm font-semibold text-on-surface flex items-center gap-2 mb-4">
       <span class="material-symbols-outlined text-primary text-[20px]">bar_chart</span>
       {{ t('analytics.dailyRevenue') }}
     </h3>
-    <div v-if="data.length === 0" class="h-[300px] flex items-center justify-center text-outline text-sm">
+    <div v-if="data.length === 0" class="h-[300px] flex items-center justify-center text-muted text-sm">
       {{ t('common.noData') }}
     </div>
     <div v-else class="h-[300px]">

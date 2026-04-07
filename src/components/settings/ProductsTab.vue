@@ -101,44 +101,30 @@ function categoryLabel(key: string): string {
 
 <template>
   <div class="space-y-6">
-    <!-- Header + Add Button -->
+    <!-- Section Header -->
     <div class="flex justify-between items-center">
-      <!-- Category Filter Pills -->
-      <div class="flex gap-2 flex-wrap">
-        <button
-          v-for="cat in categories"
-          :key="cat.key"
-          class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200"
-          :class="
-            activeCategory === cat.key
-              ? 'bg-primary text-white shadow-primary-glow'
-              : 'bg-surface-container text-outline hover:bg-surface-container-high hover:text-on-surface'
-          "
-          @click="activeCategory = cat.key"
-        >
-          <span class="material-symbols-outlined text-[16px]">{{ cat.icon }}</span>
-          {{ categoryLabel(cat.key) }}
-        </button>
+      <div>
+        <h2 class="text-2xl font-bold text-on-surface">{{ t('settings.tabs.products') }}</h2>
+        <p class="text-sm text-outline mt-1">{{ t('settings.products.addProduct') }}</p>
       </div>
-
-      <button class="btn-primary" @click="openAdd">
-        <span class="material-symbols-outlined text-[18px]">add</span>
+      <button class="btn-primary-sm flex items-center gap-2" @click="openAdd">
+        <span class="material-symbols-outlined text-sm">add</span>
         {{ t('settings.products.addProduct') }}
       </button>
     </div>
 
     <!-- Products Grid -->
-    <div v-if="filteredProducts.length === 0" class="text-center py-12 text-outline text-sm">
+    <div v-if="filteredProducts.length === 0" class="text-center py-12 text-muted text-sm">
       {{ t('common.noData') }}
     </div>
-    <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       <div
         v-for="product in filteredProducts"
         :key="product.id"
-        class="bg-white rounded-xl p-4 shadow-card group hover:shadow-card-hover hover:-translate-y-0.5 transition-all border border-transparent hover:border-primary/10"
+        class="card overflow-hidden group border border-transparent hover:border-outline-variant/10 hover:shadow-card-hover hover:-translate-y-0.5 transition-all"
       >
         <!-- Image -->
-        <div class="aspect-square rounded-lg overflow-hidden mb-3 bg-surface-container-high relative">
+        <div class="relative h-48 bg-surface-container-high">
           <img
             v-if="product.image"
             :src="product.image"
@@ -148,36 +134,41 @@ function categoryLabel(key: string): string {
           <div v-else class="w-full h-full flex items-center justify-center">
             <span class="material-symbols-outlined text-5xl text-outline/30">restaurant</span>
           </div>
+          <!-- Category Badge Overlay -->
           <span
-            class="absolute top-2 right-2 bg-white/90 backdrop-blur-sm text-[10px] font-bold px-2 py-1 rounded-full text-primary uppercase"
+            class="absolute top-3 right-3 bg-black/60 backdrop-blur-md text-[10px] font-bold px-2 py-1 rounded-xl text-white uppercase"
           >
             {{ t(`settings.products.categories.${product.category}`) }}
           </span>
         </div>
 
-        <!-- Info -->
-        <h3 class="font-bold text-sm text-on-surface mb-1 truncate">{{ product.name }}</h3>
-        <div class="flex justify-between items-center">
-          <span class="text-xs text-outline">{{ t(`settings.products.types.${product.type}`) }}</span>
-          <span class="font-bold text-sm text-primary">{{ formatPrice(product.price) }} {{ t('common.currency') }}</span>
-        </div>
+        <!-- Content -->
+        <div class="p-4 space-y-1">
+          <h3 class="font-bold text-base text-on-surface truncate">{{ product.name }}</h3>
+          <div class="pb-3">
+            <span class="font-extrabold text-lg text-primary">{{ formatPrice(product.price) }} UZS</span>
+          </div>
 
-        <!-- Actions (hover) -->
-        <div class="flex gap-1 mt-3 opacity-0 group-hover:opacity-100 transition-opacity">
-          <button
-            class="flex-1 flex items-center justify-center gap-1 py-1.5 rounded-lg bg-surface-container hover:bg-primary-fixed text-outline hover:text-primary text-xs font-medium transition-colors"
-            @click="openEdit(product.id)"
-          >
-            <span class="material-symbols-outlined text-[16px]">edit</span>
-            {{ t('common.edit') }}
-          </button>
-          <button
-            class="flex-1 flex items-center justify-center gap-1 py-1.5 rounded-lg bg-surface-container hover:bg-error-container text-outline hover:text-error text-xs font-medium transition-colors"
-            @click="store.deleteProduct(product.id)"
-          >
-            <span class="material-symbols-outlined text-[16px]">delete</span>
-            {{ t('common.delete') }}
-          </button>
+          <!-- Footer -->
+          <div class="flex items-center justify-between pt-3 border-t border-border">
+            <span class="text-[10px] font-bold uppercase text-outline">
+              {{ t(`settings.products.types.${product.type}`) }}
+            </span>
+            <div class="flex gap-2">
+              <button
+                class="w-8 h-8 rounded-xl bg-surface-container-high flex items-center justify-center hover:bg-primary-fixed transition-colors"
+                @click="openEdit(product.id)"
+              >
+                <span class="material-symbols-outlined text-xs text-on-surface">edit</span>
+              </button>
+              <button
+                class="w-8 h-8 rounded-xl bg-surface-container-high flex items-center justify-center hover:bg-error-container transition-colors"
+                @click="store.deleteProduct(product.id)"
+              >
+                <span class="material-symbols-outlined text-xs text-on-surface">delete</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -215,7 +206,7 @@ function categoryLabel(key: string): string {
             <template v-if="!form.image">
               <span class="material-symbols-outlined text-4xl text-outline group-hover/upload:text-primary transition-colors">add_a_photo</span>
               <p class="text-xs text-outline font-medium">{{ t('settings.products.dropImage') }}</p>
-              <p class="text-[10px] text-outline/60">JPG, PNG (Max 5MB)</p>
+              <p class="text-[10px] text-muted">JPG, PNG (Max 5MB)</p>
             </template>
             <div
               v-else
@@ -248,7 +239,7 @@ function categoryLabel(key: string): string {
               <option value="shirinlik">{{ t('settings.products.categories.shirinlik') }}</option>
               <option value="gazak">{{ t('settings.products.categories.gazak') }}</option>
             </select>
-            <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-lg">expand_more</span>
+            <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-muted text-lg">expand_more</span>
           </div>
         </div>
 
@@ -262,7 +253,7 @@ function categoryLabel(key: string): string {
                 <option value="kg">{{ t('settings.products.types.kg') }}</option>
                 <option value="litr">{{ t('settings.products.types.litr') }}</option>
               </select>
-              <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-lg">expand_more</span>
+              <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-muted text-lg">expand_more</span>
             </div>
           </div>
           <div>
@@ -291,7 +282,7 @@ function categoryLabel(key: string): string {
           </button>
           <button
             type="submit"
-            class="flex-1 py-3 rounded-xl font-semibold text-white bg-gradient-to-br from-primary to-primary-container shadow-lg shadow-blue-500/30 active:scale-[0.98] transition-all"
+            class="flex-1 py-3 rounded-xl font-bold text-white bg-primary shadow-primary-glow active:scale-[0.98] transition-all"
           >
             {{ editingId !== null ? t('common.save') : t('common.add') }}
           </button>

@@ -7,7 +7,7 @@ defineProps<{
 
 <template>
   <div
-    class="rounded-xl bg-white shadow-card transition-all duration-200"
+    class="rounded-2xl bg-white shadow-card-border transition-all duration-200"
     :class="[
       hoverable ? 'hover:shadow-card-hover hover:-translate-y-0.5 cursor-pointer' : '',
       padding || 'p-4',

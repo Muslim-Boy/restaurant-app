@@ -5,6 +5,21 @@ import type { Room, Table } from '../types'
 export const useRoomsStore = defineStore('rooms', () => {
   const rooms = useStorage<Room[]>('restaurant_rooms', [])
   const tables = useStorage<Table[]>('restaurant_tables', [])
+  const globalServicePercent = useStorage<number>('restaurant_global_service_percent', 10)
+
+  // Migration: convert old serviceEnabled/servicePercent to noServiceCharge
+  if (rooms.value.length > 0 && 'serviceEnabled' in (rooms.value[0] as any)) {
+    const firstNonZero = (rooms.value as any[]).find((r) => r.servicePercent > 0)
+    if (firstNonZero) {
+      globalServicePercent.value = firstNonZero.servicePercent
+    }
+    rooms.value = rooms.value.map((r: any) => ({
+      id: r.id,
+      name: r.name,
+      extraCharge: r.extraCharge,
+      noServiceCharge: !r.serviceEnabled,
+    }))
+  }
 
   function addRoom(room: Omit<Room, 'id'>) {
     const id = rooms.value.length > 0 ? Math.max(...rooms.value.map((r) => r.id)) + 1 : 1
@@ -19,8 +34,7 @@ export const useRoomsStore = defineStore('rooms', () => {
       id: current.id,
       name: data.name ?? current.name,
       extraCharge: data.extraCharge ?? current.extraCharge,
-      serviceEnabled: data.serviceEnabled ?? current.serviceEnabled,
-      servicePercent: data.servicePercent ?? current.servicePercent,
+      noServiceCharge: data.noServiceCharge ?? current.noServiceCharge,
     }
   }
 
@@ -50,6 +64,7 @@ export const useRoomsStore = defineStore('rooms', () => {
   return {
     rooms,
     tables,
+    globalServicePercent,
     addRoom,
     updateRoom,
     deleteRoom,

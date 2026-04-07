@@ -32,10 +32,12 @@
     "no": "Yo'q",
     "confirm": "Tasdiqlash",
     "noData": "Ma'lumot yo'q",
+    "active": "Faol",
     "currency": "so'm"
   },
   "settings": {
     "title": "Sozlamalar",
+    "subtitle": "Restoran tuzilmasi, menyu va jamoa a'zolarini boshqaring.",
     "tabs": {
       "rooms": "Xonalar va Stollar",
       "products": "Taomlar va Ichimliklar",
@@ -49,7 +51,8 @@
       "extraCharge": "Qo'shimcha summa",
       "serviceCharge": "Xizmat haqqi",
       "servicePercent": "Xizmat %",
-      "enableService": "Xizmat haqqi yoqish"
+      "noServiceCharge": "Xizmat haqqi olinmasin",
+      "globalServicePercent": "Umumiy xizmat haqqi foizi"
     },
     "products": {
       "addProduct": "Mahsulot qo'shish",
@@ -85,6 +88,7 @@
   },
   "working": {
     "title": "Ish jarayoni",
+    "subtitle": "Xonalar va buyurtmalarni boshqaring.",
     "newOrder": "Yangi zakaz",
     "addProduct": "Mahsulot qo'shish",
     "bill": "Hisob",
@@ -111,6 +115,7 @@
   },
   "analytics": {
     "title": "Tahlil",
+    "subtitle": "Daromad, mahsulotlar va xodimlar statistikasi.",
     "startDate": "Boshlanish sanasi",
     "endDate": "Tugash sanasi",
     "update": "Yangilash",

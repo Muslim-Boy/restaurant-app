@@ -2,8 +2,6 @@
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useEmployeesStore } from '../../stores/employees'
-import BaseCard from '../ui/BaseCard.vue'
-import StatusBadge from '../ui/StatusBadge.vue'
 
 const { t } = useI18n()
 const store = useEmployeesStore()
@@ -47,118 +45,145 @@ function resetForm() {
 </script>
 
 <template>
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-    <!-- Left: Form -->
-    <BaseCard>
-      <h3 class="text-sm font-semibold text-on-surface mb-4 flex items-center gap-2">
-        <span class="material-symbols-outlined text-primary text-[20px]">person_add</span>
-        {{ editingId !== null ? t('common.edit') : t('settings.employees.addEmployee') }}
-      </h3>
-      <form class="space-y-3" @submit.prevent="submitForm">
-        <div>
-          <label class="label-md mb-1 block">{{ t('settings.employees.employeeId') }}</label>
-          <input
-            v-model="form.id"
-            type="text"
-            class="input-field"
-            :class="{ 'ring-2 ring-error/30': idError }"
-            :placeholder="t('settings.employees.employeeId')"
-            :disabled="editingId !== null"
-            @input="idError = false"
-          />
-          <p v-if="idError" class="text-xs text-error mt-1">ID allaqachon mavjud</p>
-        </div>
-        <div>
-          <label class="label-md mb-1 block">{{ t('settings.employees.familyName') }}</label>
-          <input
-            v-model="form.familyName"
-            type="text"
-            class="input-field"
-            :placeholder="t('settings.employees.familyName')"
-          />
-        </div>
-        <div class="flex gap-2 pt-2">
-          <button type="submit" class="btn-primary flex-1">
-            <span class="material-symbols-outlined text-[18px]">{{ editingId !== null ? 'check' : 'add' }}</span>
-            {{ editingId !== null ? t('common.save') : t('common.add') }}
-          </button>
-          <button
-            v-if="editingId !== null"
-            type="button"
-            class="btn-secondary"
-            @click="resetForm"
-          >
-            {{ t('common.cancel') }}
-          </button>
-        </div>
-      </form>
-    </BaseCard>
+  <div>
+    <!-- Section Header -->
+    <div class="mb-6">
+      <h2 class="text-2xl font-bold text-on-surface">{{ t('settings.tabs.employees') }}</h2>
+      <p class="text-sm text-outline mt-1">{{ t('settings.employees.addEmployee') }}</p>
+    </div>
 
-    <!-- Right: Table -->
-    <div class="lg:col-span-2">
-      <BaseCard padding="p-0">
-        <div class="px-4 py-3 border-b border-surface-container">
-          <h3 class="text-sm font-semibold text-on-surface flex items-center gap-2">
-            <span class="material-symbols-outlined text-primary text-[20px]">badge</span>
-            {{ t('settings.tabs.employees') }}
-            <span class="ml-auto text-xs font-normal text-outline">{{ store.employees.length }}</span>
-          </h3>
+    <div class="flex flex-col lg:flex-row gap-6 lg:gap-8">
+      <!-- Left: Add Employee Form -->
+      <div class="w-full lg:w-[346px] lg:shrink-0">
+        <div class="card p-6 pb-10 border border-outline-variant/10">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="material-symbols-outlined text-primary text-lg">person_add</span>
+            <h3 class="text-lg font-bold text-on-surface">
+              {{ editingId !== null ? t('common.edit') : t('settings.employees.addEmployee') }}
+            </h3>
+          </div>
+          <form class="space-y-4" @submit.prevent="submitForm">
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="label-md mb-1 block">ID</label>
+                <input
+                  v-model="form.id"
+                  type="text"
+                  class="input-field"
+                  :class="{ 'ring-2 ring-error/30': idError }"
+                  placeholder="ST-101"
+                  :disabled="editingId !== null"
+                  @input="idError = false"
+                />
+              </div>
+              <div>
+                <label class="label-md mb-1 block">{{ t('common.status') }}</label>
+                <div class="relative">
+                  <select class="input-field appearance-none pr-10">
+                    <option value="working">{{ t('settings.employees.statuses.working') }}</option>
+                    <option value="free">{{ t('settings.employees.statuses.free') }}</option>
+                  </select>
+                  <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-muted text-lg">expand_more</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <label class="label-md mb-1 block">{{ t('settings.employees.familyName') }}</label>
+              <input
+                v-model="form.familyName"
+                type="text"
+                class="input-field"
+                placeholder="Abdukarimov"
+              />
+            </div>
+            <div>
+              <label class="label-md mb-1 block">{{ t('settings.employees.familyName') }}</label>
+              <input
+                type="text"
+                class="input-field"
+                placeholder="Alisher"
+              />
+            </div>
+            <p v-if="idError" class="text-xs text-error">ID allaqachon mavjud</p>
+            <button type="submit" class="btn-primary w-full">
+              {{ editingId !== null ? t('common.save') : t('settings.employees.addEmployee') }}
+            </button>
+            <button
+              v-if="editingId !== null"
+              type="button"
+              class="btn-secondary w-full"
+              @click="resetForm"
+            >
+              {{ t('common.cancel') }}
+            </button>
+          </form>
         </div>
+      </div>
 
-        <div v-if="store.employees.length === 0" class="p-6 text-center text-outline text-sm">
-          {{ t('common.noData') }}
-        </div>
+      <!-- Right: Employee Table -->
+      <div class="flex-1">
+        <div class="card overflow-hidden border border-outline-variant/10">
+          <div v-if="store.employees.length === 0" class="p-8 text-center text-muted text-sm">
+            {{ t('common.noData') }}
+          </div>
 
-        <!-- Table -->
-        <div v-else class="overflow-x-auto">
-          <table class="w-full text-sm">
+          <table v-else class="w-full">
             <thead>
-              <tr class="border-b border-surface-container">
-                <th class="px-4 py-3 text-left label-md">ID</th>
-                <th class="px-4 py-3 text-left label-md">{{ t('settings.employees.familyName') }}</th>
-                <th class="px-4 py-3 text-left label-md">{{ t('common.status') }}</th>
-                <th class="px-4 py-3 text-right label-md">{{ t('common.actions') }}</th>
+              <tr class="bg-tab-bg">
+                <td class="px-6 py-3 label-md">ID</td>
+                <td class="px-6 py-3 label-md">{{ t('settings.employees.familyName') }}</td>
+                <td class="px-6 py-3 label-md">{{ t('common.status') }}</td>
+                <td class="px-6 py-3 label-md text-right">{{ t('common.actions') }}</td>
               </tr>
             </thead>
-            <tbody class="divide-y divide-surface-container">
+            <tbody>
               <tr
                 v-for="emp in store.employees"
                 :key="emp.id"
-                class="hover:bg-surface-container/30 transition-colors"
+                class="border-t border-border hover:bg-surface/50 transition-colors"
               >
-                <td class="px-4 py-3">
-                  <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-primary-fixed text-primary text-xs font-bold">
-                    {{ emp.id }}
+                <td class="px-6 py-5">
+                  <span class="font-bold text-base text-primary">{{ emp.id }}</span>
+                </td>
+                <td class="px-6 py-5">
+                  <span class="font-semibold text-base text-on-surface">{{ emp.familyName }}</span>
+                </td>
+                <td class="px-6 py-5">
+                  <span
+                    class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium"
+                    :class="emp.status === 'working'
+                      ? 'bg-success-container text-green-700'
+                      : 'bg-surface-container-high text-outline'"
+                  >
+                    <span
+                      class="w-1.5 h-1.5 rounded-full"
+                      :class="emp.status === 'working' ? 'bg-green-500' : 'bg-outline'"
+                    ></span>
+                    {{ t(`settings.employees.statuses.${emp.status}`) }}
                   </span>
                 </td>
-                <td class="px-4 py-3 font-medium text-on-surface">{{ emp.familyName }}</td>
-                <td class="px-4 py-3">
-                  <StatusBadge :variant="emp.status === 'working' ? 'success' : 'neutral'">
-                    {{ t(`settings.employees.statuses.${emp.status}`) }}
-                  </StatusBadge>
-                </td>
-                <td class="px-4 py-3">
-                  <div class="flex items-center justify-end gap-1">
+                <td class="px-6 py-5">
+                  <div class="flex items-center justify-end gap-2">
                     <button
-                      class="p-1.5 rounded-lg hover:bg-surface-container-high transition-colors text-outline hover:text-primary"
+                      class="p-2 rounded-xl hover:bg-surface-container-high transition-colors text-outline"
                       :title="t('settings.employees.changeStatus')"
                       @click="store.toggleStatus(emp.id)"
                     >
-                      <span class="material-symbols-outlined text-[18px]">swap_horiz</span>
+                      <span class="material-symbols-outlined text-sm">swap_horiz</span>
                     </button>
                     <button
-                      class="p-1.5 rounded-lg hover:bg-surface-container-high transition-colors text-outline hover:text-primary"
+                      class="p-2 rounded-xl hover:bg-surface-container-high transition-colors text-outline"
                       :title="t('common.edit')"
                       @click="editEmployee(emp.id)"
                     >
-                      <span class="material-symbols-outlined text-[18px]">edit</span>
+                      <span class="material-symbols-outlined text-sm">edit</span>
                     </button>
                     <button
-                      class="p-1.5 rounded-lg hover:bg-error-container transition-colors text-outline hover:text-error"
+                      class="p-2 rounded-xl hover:bg-error-container transition-colors text-outline hover:text-error"
                       :title="t('common.delete')"
                       @click="store.deleteEmployee(emp.id)"
                     >
-                      <span class="material-symbols-outlined text-[18px]">delete</span>
+                      <span class="material-symbols-outlined text-sm">delete</span>
                     </button>
                   </div>
                 </td>
@@ -166,7 +191,7 @@ function resetForm() {
             </tbody>
           </table>
         </div>
-      </BaseCard>
+      </div>
     </div>
   </div>
 </template>

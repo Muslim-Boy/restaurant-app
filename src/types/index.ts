@@ -2,8 +2,7 @@ export interface Room {
   id: number
   name: string
   extraCharge: number
-  serviceEnabled: boolean
-  servicePercent: number
+  noServiceCharge: boolean
 }
 
 export interface Table {

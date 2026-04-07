@@ -18,7 +18,27 @@ const freeRooms = computed(() =>
   roomsStore.rooms.filter((r) => !ordersStore.isRoomOccupied(r.id)),
 )
 
-// Modal states (komponentlari keyingi sessiyada)
+const totalItems = computed(() => {
+  let count = 0
+  for (const room of occupiedRooms.value) {
+    count += ordersStore.getOrderItemCount(room.id)
+  }
+  return count
+})
+
+const totalRevenue = computed(() => {
+  let sum = 0
+  for (const room of occupiedRooms.value) {
+    sum += ordersStore.getOrderTotal(room.id)
+  }
+  return sum
+})
+
+function formatPrice(val: number): string {
+  return val.toLocaleString('uz-UZ')
+}
+
+// Modal states
 const showOrderModal = ref(false)
 const showBillModal = ref(false)
 const selectedRoomId = ref<number | null>(null)
@@ -35,12 +55,19 @@ function openBillModal(roomId: number) {
 </script>
 
 <template>
-  <div class="p-6 space-y-8">
-    <!-- Header + New Order Button -->
-    <div class="flex items-center justify-between">
-      <div />
+  <div class="p-4 sm:p-6 lg:p-8 space-y-8 lg:space-y-10">
+    <!-- Page Header -->
+    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+      <div>
+        <h1 class="text-2xl sm:text-[30px] font-extrabold leading-9 tracking-tight text-on-surface">
+          {{ t('working.title') }}
+        </h1>
+        <p class="text-sm sm:text-base font-medium text-outline mt-1">
+          {{ t('working.subtitle') || t('working.title') }}
+        </p>
+      </div>
       <button
-        class="group relative flex items-center gap-4 bg-gradient-to-br from-primary to-primary-container text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+        class="group flex items-center gap-4 bg-gradient-to-br from-primary to-[#2563EB] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition-all duration-300 shrink-0"
         @click="openOrderModal()"
       >
         <div class="flex flex-col items-start">
@@ -51,6 +78,46 @@ function openBillModal(roomId: number) {
         </div>
         <span class="material-symbols-outlined text-3xl transition-transform group-hover:rotate-90">add_circle</span>
       </button>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4" v-if="roomsStore.rooms.length > 0">
+      <div class="flex items-center gap-3 bg-white rounded-2xl px-4 sm:px-5 py-3 shadow-card">
+        <div class="w-10 h-10 rounded-xl bg-[#DBEAFE] flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-[#2563EB]">meeting_room</span>
+        </div>
+        <div class="min-w-0">
+          <p class="text-[10px] font-bold uppercase tracking-wide text-outline">{{ t('working.occupied') }}</p>
+          <p class="text-xl font-black text-on-surface">{{ occupiedRooms.length }}</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 bg-white rounded-2xl px-4 sm:px-5 py-3 shadow-card">
+        <div class="w-10 h-10 rounded-xl bg-[#DCFCE7] flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-[#059669]">event_available</span>
+        </div>
+        <div class="min-w-0">
+          <p class="text-[10px] font-bold uppercase tracking-wide text-outline">{{ t('working.free') }}</p>
+          <p class="text-xl font-black text-on-surface">{{ freeRooms.length }}</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 bg-white rounded-2xl px-4 sm:px-5 py-3 shadow-card">
+        <div class="w-10 h-10 rounded-xl bg-[#FFEDD5] flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-[#EA580C]">flatware</span>
+        </div>
+        <div class="min-w-0">
+          <p class="text-[10px] font-bold uppercase tracking-wide text-outline">{{ t('working.products') }}</p>
+          <p class="text-xl font-black text-on-surface">{{ totalItems }}</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 bg-white rounded-2xl px-4 sm:px-5 py-3 shadow-card">
+        <div class="w-10 h-10 rounded-xl bg-[#DBEAFE] flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-[#2563EB]">payments</span>
+        </div>
+        <div class="min-w-0">
+          <p class="text-[10px] font-bold uppercase tracking-wide text-outline truncate">{{ t('common.total') }}</p>
+          <p class="text-xl font-black text-on-surface">{{ formatPrice(totalRevenue) }}</p>
+        </div>
+      </div>
     </div>
 
     <!-- No rooms warning -->
@@ -69,9 +136,9 @@ function openBillModal(roomId: number) {
     <template v-else>
       <!-- Occupied Rooms -->
       <section v-if="occupiedRooms.length > 0">
-        <div class="flex items-center gap-3 mb-4">
+        <div class="flex items-center gap-3 mb-6">
           <div class="h-8 w-1.5 bg-primary rounded-full" />
-          <h2 class="text-sm font-bold text-on-surface uppercase tracking-widest">
+          <h2 class="text-xl font-bold text-on-surface uppercase tracking-[2px]">
             {{ t('working.occupied') }} ({{ occupiedRooms.length }})
           </h2>
         </div>
@@ -88,9 +155,9 @@ function openBillModal(roomId: number) {
 
       <!-- Free Rooms -->
       <section v-if="freeRooms.length > 0">
-        <div class="flex items-center gap-3 mb-4">
+        <div class="flex items-center gap-3 mb-6">
           <div class="h-8 w-1.5 bg-outline-variant rounded-full" />
-          <h2 class="text-sm font-bold text-outline uppercase tracking-widest">
+          <h2 class="text-xl font-bold text-outline uppercase tracking-[2px]">
             {{ t('working.free') }} ({{ freeRooms.length }})
           </h2>
         </div>
