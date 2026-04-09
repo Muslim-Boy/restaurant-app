@@ -30,6 +30,7 @@ function formatPrice(val: number): string {
           <tr class="bg-tab-bg">
             <td class="px-6 py-3 label-md">{{ t('analytics.employee') }}</td>
             <td class="px-6 py-3 label-md">{{ t('analytics.reason') }}</td>
+            <td class="px-6 py-3 label-md">{{ t('working.comment') }}</td>
             <td class="px-6 py-3 text-right label-md">{{ t('analytics.amount') }}</td>
             <td class="px-6 py-3 text-right label-md">{{ t('common.date') }}</td>
           </tr>
@@ -49,6 +50,7 @@ function formatPrice(val: number): string {
               </div>
             </td>
             <td class="px-6 py-4 text-outline">{{ fine.reason }}</td>
+            <td class="px-6 py-4 text-outline text-sm">{{ fine.comment || '—' }}</td>
             <td class="px-6 py-4 text-right font-semibold text-error">{{ formatPrice(fine.amount) }} UZS</td>
             <td class="px-6 py-4 text-right text-muted">{{ fine.date }}</td>
           </tr>

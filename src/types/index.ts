@@ -83,5 +83,17 @@ export interface Fine {
   orderId: number
   reason: string
   amount: number
+  comment: string
   date: string
+}
+
+export interface DecreasePenalty {
+  productId: number
+  productName: string
+  previousQty: number
+  newQty: number
+  reason: RemoveReason
+  comment: string
+  employeeId: string | null
+  fineAmount: number
 }

@@ -11,6 +11,7 @@ const pageTitle = computed(() => {
     '/settings': 'settings.title',
     '/working': 'working.title',
     '/analytics': 'analytics.title',
+    '/history': 'history.title',
   }
   return t(map[route.path] || 'app.name')
 })

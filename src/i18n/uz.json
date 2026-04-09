@@ -5,7 +5,8 @@
   "nav": {
     "settings": "Sozlamalar",
     "working": "Ish jarayoni",
-    "analytics": "Tahlil"
+    "analytics": "Tahlil",
+    "history": "Tarix"
   },
   "lang": {
     "uz": "O'zbekcha",
@@ -99,6 +100,8 @@
     "roomSelect": "Xonani tanlang",
     "saveOrder": "Saqlash va Yuborish",
     "orderItems": "Buyurtma mahsulotlari",
+    "menuTab": "Menyu",
+    "basketTab": "Savat",
     "serviceCharge": "Xizmat haqqi",
     "roomCharge": "Xona qo'shimchasi",
     "grandTotal": "Umumiy jami",
@@ -111,7 +114,13 @@
     },
     "selectEmployee": "Xodimni tanlang",
     "fineAmount": "Jarima summasi",
-    "fineOptional": "Ixtiyoriy"
+    "fineOptional": "Ixtiyoriy",
+    "decreasePenalty": "Kamaytirilgan mahsulotlar uchun jarima",
+    "decreaseInfo": "Quyidagi mahsulotlar kamaytirildi. Har biri uchun izoh yozing.",
+    "decreasedBy": "kamaytirilib",
+    "comment": "Izoh",
+    "commentRequired": "Izoh majburiy",
+    "commentPlaceholder": "Kamaytirilish sababini yozing..."
   },
   "analytics": {
     "title": "Tahlil",
@@ -135,5 +144,25 @@
     "employee": "Xodim",
     "reason": "Sabab",
     "amount": "Summa"
+  },
+  "history": {
+    "title": "Buyurtmalar tarixi",
+    "subtitle": "Yopilgan buyurtmalar ro'yxati va tafsilotlari.",
+    "orderId": "Buyurtma #",
+    "roomName": "Xona",
+    "closedAt": "Yopilgan vaqt",
+    "itemsCount": "Mahsulotlar soni",
+    "grandTotal": "Umumiy jami",
+    "subtotal": "Oraliq jami",
+    "serviceCharge": "Xizmat haqqi",
+    "roomCharge": "Xona qo'shimchasi",
+    "orderDetails": "Buyurtma tafsilotlari",
+    "removedItems": "Olib tashlangan mahsulotlar",
+    "reason": "Sabab",
+    "fine": "Jarima",
+    "employee": "Xodim",
+    "noHistory": "Buyurtmalar tarixi yo'q",
+    "totalOrders": "Jami buyurtmalar",
+    "totalRevenue": "Jami daromad"
   }
 }

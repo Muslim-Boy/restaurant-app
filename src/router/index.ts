@@ -22,6 +22,11 @@ const router = createRouter({
       name: 'analytics',
       component: () => import('../pages/AnalyticsPage.vue'),
     },
+    {
+      path: '/history',
+      name: 'history',
+      component: () => import('../pages/HistoryPage.vue'),
+    },
   ],
 })
 

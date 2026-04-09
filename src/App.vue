@@ -55,6 +55,7 @@ const sidebarOpen = ref(false)
             v-for="item in [
               { to: '/working', icon: 'layers', label: $t('nav.working') },
               { to: '/settings', icon: 'settings', label: $t('nav.settings') },
+              { to: '/history', icon: 'history', label: $t('nav.history') },
               { to: '/analytics', icon: 'analytics', label: $t('nav.analytics') },
             ]"
             :key="item.to"

@@ -57,27 +57,23 @@ function openBillModal(roomId: number) {
 <template>
   <div class="p-4 sm:p-6 lg:p-8 space-y-8 lg:space-y-10">
     <!-- Page Header -->
-    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-      <div>
-        <h1 class="text-2xl sm:text-[30px] font-extrabold leading-9 tracking-tight text-on-surface">
-          {{ t('working.title') }}
-        </h1>
-        <p class="text-sm sm:text-base font-medium text-outline mt-1">
-          {{ t('working.subtitle') || t('working.title') }}
-        </p>
-      </div>
-      <button
-        class="group flex items-center gap-4 bg-gradient-to-br from-primary to-[#2563EB] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition-all duration-300 shrink-0"
-        @click="openOrderModal()"
-      >
-        <div class="flex flex-col items-start">
-          <span class="text-[10px] uppercase tracking-[0.2em] font-black opacity-80">
-            {{ t('common.add') }}
-          </span>
-          <span class="text-lg font-bold">{{ t('working.newOrder') }}</span>
+    <div class="flex items-start sm:items-center justify-between gap-4">
+      <div class="flex items-center gap-3 sm:gap-4">
+        <button
+          class="group w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center bg-gradient-to-br from-primary to-[#2563EB] text-white rounded-xl sm:rounded-2xl shadow-primary-glow hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 shrink-0"
+          @click="openOrderModal()"
+        >
+          <span class="material-symbols-outlined text-2xl sm:text-[28px] transition-transform group-hover:rotate-90">add</span>
+        </button>
+        <div>
+          <h1 class="text-2xl sm:text-[30px] font-extrabold leading-9 tracking-tight text-on-surface">
+            {{ t('working.title') }}
+          </h1>
+          <p class="text-sm sm:text-base font-medium text-outline mt-0.5">
+            {{ t('working.subtitle') || t('working.title') }}
+          </p>
         </div>
-        <span class="material-symbols-outlined text-3xl transition-transform group-hover:rotate-90">add_circle</span>
-      </button>
+      </div>
     </div>
 
     <!-- Stats Bar -->

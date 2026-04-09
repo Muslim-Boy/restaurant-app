@@ -5,7 +5,8 @@
   "nav": {
     "settings": "Настройки",
     "working": "Рабочая зона",
-    "analytics": "Аналитика"
+    "analytics": "Аналитика",
+    "history": "История"
   },
   "lang": {
     "uz": "Узбекский",
@@ -99,6 +100,8 @@
     "roomSelect": "Выберите комнату",
     "saveOrder": "Сохранить и Отправить",
     "orderItems": "Позиции заказа",
+    "menuTab": "Меню",
+    "basketTab": "Корзина",
     "serviceCharge": "Плата за обслуживание",
     "roomCharge": "Доп. за комнату",
     "grandTotal": "Общий итог",
@@ -111,7 +114,13 @@
     },
     "selectEmployee": "Выберите сотрудника",
     "fineAmount": "Сумма штрафа",
-    "fineOptional": "Необязательно"
+    "fineOptional": "Необязательно",
+    "decreasePenalty": "Штраф за уменьшение продуктов",
+    "decreaseInfo": "Следующие продукты были уменьшены. Напишите комментарий для каждого.",
+    "decreasedBy": "уменьшено на",
+    "comment": "Комментарий",
+    "commentRequired": "Комментарий обязателен",
+    "commentPlaceholder": "Напишите причину уменьшения..."
   },
   "analytics": {
     "title": "Аналитика",
@@ -135,5 +144,25 @@
     "employee": "Сотрудник",
     "reason": "Причина",
     "amount": "Сумма"
+  },
+  "history": {
+    "title": "История заказов",
+    "subtitle": "Список и детали закрытых заказов.",
+    "orderId": "Заказ #",
+    "roomName": "Комната",
+    "closedAt": "Время закрытия",
+    "itemsCount": "Кол-во позиций",
+    "grandTotal": "Общий итог",
+    "subtotal": "Промежуточный итог",
+    "serviceCharge": "Обслуживание",
+    "roomCharge": "Доп. за комнату",
+    "orderDetails": "Детали заказа",
+    "removedItems": "Удалённые позиции",
+    "reason": "Причина",
+    "fine": "Штраф",
+    "employee": "Сотрудник",
+    "noHistory": "Нет истории заказов",
+    "totalOrders": "Всего заказов",
+    "totalRevenue": "Общий доход"
   }
 }

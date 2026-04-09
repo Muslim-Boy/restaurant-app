@@ -12,7 +12,7 @@ defineProps<{
 
 const emit = defineEmits<{
   close: []
-  confirm: [data: { reason: RemoveReason; employeeId: string | null; fine: number }]
+  confirm: [data: { reason: RemoveReason; employeeId: string | null; fine: number; comment: string }]
 }>()
 
 const { t } = useI18n()
@@ -21,12 +21,19 @@ const employeesStore = useEmployeesStore()
 const reason = ref<RemoveReason>('client_rejected')
 const selectedEmployeeId = ref<string | null>(null)
 const fineAmount = ref(0)
+const comment = ref('')
+const attempted = ref(false)
 
 function submit() {
+  attempted.value = true
+  if (!comment.value.trim()) return
+  if (reason.value === 'employee_error' && !selectedEmployeeId.value) return
+
   emit('confirm', {
     reason: reason.value,
     employeeId: reason.value === 'employee_error' ? selectedEmployeeId.value : null,
     fine: reason.value === 'employee_error' ? fineAmount.value : 0,
+    comment: comment.value.trim(),
   })
   reset()
 }
@@ -40,6 +47,8 @@ function reset() {
   reason.value = 'client_rejected'
   selectedEmployeeId.value = null
   fineAmount.value = 0
+  comment.value = ''
+  attempted.value = false
 }
 
 const workingEmployees = ref(employeesStore.employees.filter((e) => e.status === 'working'))
@@ -73,6 +82,23 @@ const workingEmployees = ref(employeesStore.employees.filter((e) => e.status ===
             <span class="font-medium text-sm text-on-surface">{{ t('working.reasons.employee_error') }}</span>
           </label>
         </div>
+      </div>
+
+      <!-- Comment (required) -->
+      <div>
+        <label class="label-md mb-2 block">
+          {{ t('working.comment') }} <span class="text-error">*</span>
+        </label>
+        <textarea
+          v-model="comment"
+          class="input-field resize-none"
+          rows="2"
+          :placeholder="t('working.commentPlaceholder')"
+          :class="{ 'border-error ring-1 ring-error/20': attempted && !comment.trim() }"
+        />
+        <p v-if="attempted && !comment.trim()" class="text-xs text-error mt-1">
+          {{ t('working.commentRequired') }}
+        </p>
       </div>
 
       <!-- Employee selection + Fine (only for employee_error) -->
@@ -129,8 +155,8 @@ const workingEmployees = ref(employeesStore.employees.filter((e) => e.status ===
       </button>
       <button
         class="flex-1 py-2.5 rounded-xl font-semibold text-white bg-error hover:bg-red-700 active:scale-[0.98] transition-all"
-        :disabled="reason === 'employee_error' && !selectedEmployeeId"
-        :class="{ 'opacity-40 cursor-not-allowed': reason === 'employee_error' && !selectedEmployeeId }"
+        :disabled="attempted && (!comment.trim() || (reason === 'employee_error' && !selectedEmployeeId))"
+        :class="{ 'opacity-40 cursor-not-allowed': attempted && (!comment.trim() || (reason === 'employee_error' && !selectedEmployeeId)) }"
         @click="submit"
       >
         {{ t('common.confirm') }}
